@@ -1,7 +1,7 @@
 # README.md
 
 - build the env
-ant clean resolve dist
+`ant clean resolve dist`
 
 - setup hdfs
 hadoop fs -mkdir /user/ec2-user/wordcount
