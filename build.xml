@@ -1,0 +1,75 @@
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="hw" default="run">
+
+  <property name="src.dir" location="${basedir}/src" />
+  <property name="lib.dir" location="${basedir}/lib"/>
+  <property name="dist.dir" location="${basedir}/dist"/>
+  <property name="build.dir" location="${basedir}/build"/>
+  <property name="resource.dir" location="${basedir}/resource"/>
+  <property name="tmp.dir" location="${basedir}/tmp"/>
+  <property name="cls.build.dir" location="${build.dir}/classes"/>
+  <property name="lib.build.dir" location="${build.dir}/lib"/>
+  <property name="scala.lib.dir" location="/usr/share/scala/scala-2.9.2/lib"/>
+
+  <path id="project.classpath">
+    <pathelement location="${scala.lib.dir}/scala-library.jar"/>
+    <fileset dir="${lib.dir}">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+
+  <taskdef resource="scala/tools/ant/antlib.xml">
+    <classpath>
+      <pathelement location="${scala.lib.dir}/scala-compiler.jar"/>
+      <pathelement location="${scala.lib.dir}/scala-library.jar"/>
+      <pathelement location="${scala.lib.dir}/scala-reflect.jar"/>
+    </classpath>
+  </taskdef>
+
+  <target name="init">
+      <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build.dir}"/>
+  </target>
+
+  <target name="compile" depends="init" description="compile the source">
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac srcdir="${src.dir}/main/java" destdir="${build.dir}" classpathref="project.classpath"/>
+    <scalac srcdir="${src.dir}/main/scala" destdir="${build.dir}" classpathref="project.classpath"/>
+  </target>
+
+  <target name="clean" description="clean up" >
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build.dir}"/>
+    <delete dir="${dist.dir}"/>
+  </target>
+
+  <target name="resolve" description="retrieve dependencies with ivy">
+    <ivy:retrieve />
+  </target>
+
+  <target name="dist" depends="init,compile" description="create a superjar">
+    <!-- Create the dist directory -->
+    <mkdir dir="${tmp.dir}"/>
+    <mkdir dir="${dist.dir}"/>
+    <!-- Unzip all jars in default lib dir -->
+    <delete dir="${tmp.dir}/lib"/>
+    <unzip dest="${tmp.dir}/lib">
+      <patternset>
+        <!--<exclude name="*"/>-->
+        <exclude name="META-INF/**"/>
+      </patternset>
+      <fileset dir="${lib.dir}">
+        <include name="**/*.jar"/>
+      </fileset>
+    </unzip>
+   <!-- Create main jar for java application -->
+    <jar jarfile="${dist.dir}/${ant.project.name}.jar" basedir="${build.dir}">
+      <fileset dir="${resource.dir}"/>
+      <fileset dir="${tmp.dir}/lib"/>
+    </jar>
+    <!-- Cleanup temporary dir -->
+    <delete dir="${tmp.dir}/lib"/>
+  </target>
+
+</project>
