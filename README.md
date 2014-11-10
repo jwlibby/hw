@@ -10,8 +10,8 @@ hadoop fs -put resource/loremipsum.txt /user/ec2-user/wordcount
 ```
 - run the commands:
 ```
-hadoop jar dist/hw.jar com.jl.test.CascadingHelloWorld
-hadoop jar dist/hw.jar com.jl.test.ScaldingHelloWorld
+hadoop jar dist/hw.jar com.jl.test.JavaHelloWorld
+hadoop jar dist/hw.jar com.jl.test.ScalaHelloWorld
 hadoop jar dist/hw.jar com.jl.test.CascadingWordCount /user/ec2-user/wordcount/loremipsum.txt /user/ec2-user/wordcount/cascading-results
 hadoop jar dist/hw.jar com.twitter.scalding.Tool com.jl.test.ScaldingWordCount --hdfs --input /user/ec2-user/wordcount/loremipsum.txt --output /user/ec2-user/wordcount/scalding-results
 ```
