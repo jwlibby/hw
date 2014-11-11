@@ -8,7 +8,7 @@
   <property name="tmp.dir" location="${basedir}/tmp"/>
   <property name="cls.build.dir" location="${build.dir}/classes"/>
   <property name="lib.build.dir" location="${build.dir}/lib"/>
-  <property name="scala.lib.dir" location="/usr/share/scala/scala-2.9.2/lib"/>
+  <property name="scala.lib.dir" location="/usr/share/scala/scala-2.9.3/lib"/>
 
   <path id="project.classpath">
     <pathelement location="${scala.lib.dir}/scala-library.jar"/>

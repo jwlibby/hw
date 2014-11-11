@@ -5,7 +5,8 @@
     <dependency org="commons-cli" name="commons-cli" rev="1.0"/>
     <dependency org="org.apache.hadoop" name="hadoop-common" rev="2.2.0"/>
     <dependency org="cascading" name="cascading-hadoop" rev="2.5.2"/>
-    <dependency org="com.twitter" name="scalding_2.9.2" rev="0.8.3"/>
+    <dependency org="com.twitter" name="scalding_2.9.3" rev="0.11.2"/>
+    <dependency org='com.twitter' name='scalding-avro_2.9.3' rev='0.9.1'/>
 
   </dependencies>
 </ivy-module>
